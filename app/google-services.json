@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "981284955854",
+    "project_id": "smart-traffic-light-312914",
+    "storage_bucket": "smart-traffic-light-312914.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981284955854:android:c27cf3dad299c4d2cbd29f",
+        "android_client_info": {
+          "package_name": "com.sabeno.solutif"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981284955854-s08gnf4o0m3egt8744np969sjq6rcom1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sabeno.solutif",
+            "certificate_hash": "54520b0578286345084141318e15661a744963a3"
+          }
+        },
+        {
+          "client_id": "981284955854-ejj6f4rc3omfu91g03f7p5hcdd5aa49a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC-TwUE095jE48ZyKS-45e8l8QyaMTaP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981284955854-ejj6f4rc3omfu91g03f7p5hcdd5aa49a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
