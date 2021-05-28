@@ -1,14 +1,11 @@
-package com.sabeno.solutif
+package com.sabeno.solutif.ui
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import com.mapbox.mapboxsdk.Mapbox
+import com.sabeno.solutif.R
 import com.sabeno.solutif.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+        supportActionBar?.hide()
+        Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
         setupBottomNav()
     }
 

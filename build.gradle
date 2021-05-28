@@ -48,6 +48,10 @@ ext {
 
     coroutines = "1.4.3"
 
+    mapbox_version = "9.2.0"
+    mapbox_annotation_version = "0.8.0"
+    mapbox_telemetry = "6.1.0"
+
     junit_version = "4.13.2"
     androidx_junit_version = "1.1.2"
     espresso_version = "3.3.0"

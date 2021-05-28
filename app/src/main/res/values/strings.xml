@@ -8,4 +8,14 @@
     <string name="title_map">Map</string>
     <string name="title_list">List</string>
     <string name="tambah_laporan">Tambah laporan</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiYmVubm9hbGlmIiwiYSI6ImNrYnJyanZseDE4aW8ydWp6M3VvZHR6aXoifQ.IBqQxxGN8T-7SrY32AVoLQ</string>
+    <string name="hint_email">contoh@email.com</string>
+    <string name="hint_password">kata sandi Anda</string>
+    <string name="label_password">Password</string>
+    <string name="label_email">Email</string>
+    <string name="login">Masuk</string>
+    <string name="title_profile">Profile</string>
+    <string name="profile_icon">Profile icon</string>
+    <string name="logout">Keluar</string>
+    <string name="username">Username</string>
 </resources>
