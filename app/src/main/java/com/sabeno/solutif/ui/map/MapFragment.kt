@@ -1,5 +1,6 @@
 package com.sabeno.solutif.ui.map
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +21,7 @@ class MapFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMapBinding.inflate(inflater, container, false)
         binding.mapView.onCreate(savedInstanceState)
         return binding.root
@@ -29,10 +30,19 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var mapboxStyle = Style.LIGHT
+
+        when (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+            Configuration.UI_MODE_NIGHT_YES -> mapboxStyle = Style.DARK
+            Configuration.UI_MODE_NIGHT_NO -> mapboxStyle = Style.LIGHT
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> mapboxStyle = Style.LIGHT
+
+        }
+
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync { mapboxMap ->
             this.mapboxMap = mapboxMap
-            mapboxMap.setStyle(Style.LIGHT) { style ->
+            mapboxMap.setStyle(mapboxStyle) { style ->
             }
         }
     }

@@ -18,4 +18,7 @@
     <string name="profile_icon">Profile icon</string>
     <string name="logout">Keluar</string>
     <string name="username">Username</string>
+    <string name="request_canceled">Request canceled</string>
+    <string name="enter_valid_email">Enter a valid email</string>
+    <string name="enter_valid_password">Use at least 6 characters</string>
 </resources>
