@@ -21,6 +21,8 @@ class LoginActivity : AppCompatActivity() {
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+        supportActionBar?.hide()
+
         binding?.btnLogin?.setOnClickListener {
             if (validateEmail() && validatePassword()) {
                 authViewModel.loginUser(

@@ -186,7 +186,6 @@ class MapFragment : Fragment() {
                 locationComponent.lastKnownLocation?.latitude as Double,
                 locationComponent.lastKnownLocation?.longitude as Double
             )
-            mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 12.0))
         } else {
             permissionsManager = PermissionsManager(object : PermissionsListener {
                 override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {

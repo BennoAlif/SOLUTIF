@@ -24,8 +24,6 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        supportActionBar?.hide()
-
         coroutineScope.launch {
             delay(3_000)
             currentFirebaseUser = authViewModel.checkUserLoggedIn()
