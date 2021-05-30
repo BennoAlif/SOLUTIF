@@ -54,10 +54,10 @@ class ReportFragment : Fragment() {
     private fun setupRecyclerView() {
         reportAdapter = ReportAdapter(reportViewModel.getReports()!!)
         reportAdapter.setOnItemClickCallback(object : ReportAdapter.OnItemClickCallback {
-            override fun onItemClicked(report: Report) {
+            override fun onItemClicked(report: Report, id: String) {
                 val intent = Intent(activity, DetailActivity::class.java)
-                intent.putExtra(DetailActivity.EXTRA_ID, report.id)
                 intent.putExtra(DetailActivity.EXTRA_REPORT, report)
+                intent.putExtra(DetailActivity.EXTRA_ID, id)
                 startActivity(intent)
             }
         })

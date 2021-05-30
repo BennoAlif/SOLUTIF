@@ -22,4 +22,5 @@ interface IReportRepository {
     suspend fun getReportOptions(): FirestoreRecyclerOptions<Report>
     suspend fun getReports(): Result<List<Report>?>
     suspend fun getReportById(reportId: String): Result<Report>?
+    suspend fun createReport(report: Report): Result<Void?>
 }

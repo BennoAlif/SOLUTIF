@@ -1,21 +1,17 @@
 package com.sabeno.solutif.ui.map
 
 import android.app.Activity
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.sabeno.solutif.R
 import com.sabeno.solutif.data.source.Report
 import com.sabeno.solutif.repository.IReportRepository
 import com.sabeno.solutif.utils.Result
-import kotlinx.coroutines.launch
 
 class MapViewModel(private var IReportRepository: IReportRepository) : ViewModel() {
 
-    var listReport = MutableLiveData<List<Report>?>()
+    private var listReport = MutableLiveData<List<Report>?>()
 
     private val _toast = MutableLiveData<String?>()
     val toast: LiveData<String?>

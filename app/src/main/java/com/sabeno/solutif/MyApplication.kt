@@ -2,6 +2,7 @@ package com.sabeno.solutif
 
 import android.app.Application
 import com.sabeno.solutif.di.authViewModelModule
+import com.sabeno.solutif.di.createReportViewModelModule
 import com.sabeno.solutif.di.mapViewModelModule
 import com.sabeno.solutif.di.reportViewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -17,7 +18,8 @@ class MyApplication : Application() {
                     authViewModelModule,
                     reportViewModelModule,
 //                    detailViewModelModule,
-                    mapViewModelModule
+                    mapViewModelModule,
+                    createReportViewModelModule
                 )
             )
         }

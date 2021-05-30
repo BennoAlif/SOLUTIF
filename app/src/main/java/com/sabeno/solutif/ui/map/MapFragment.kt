@@ -44,7 +44,8 @@ class MapFragment : Fragment() {
 
     private val mapViewModel: MapViewModel by inject()
 
-    private lateinit var binding: FragmentMapBinding
+    private var _binding: FragmentMapBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var mapboxMap: MapboxMap
     private lateinit var locationComponent: LocationComponent
@@ -58,7 +59,7 @@ class MapFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMapBinding.inflate(inflater, container, false)
+        _binding = FragmentMapBinding.inflate(inflater, container, false)
         binding.mapView.onCreate(savedInstanceState)
         return binding.root
     }
@@ -72,6 +73,13 @@ class MapFragment : Fragment() {
 
         mapViewModel.getReports().observe(viewLifecycleOwner, { report ->
             showReportMarker(report)
+        })
+
+        mapViewModel.toast.observe(viewLifecycleOwner, { message ->
+            message?.let {
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                mapViewModel.onToastShown()
+            }
         })
     }
 
@@ -103,6 +111,7 @@ class MapFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         binding.mapView.onDestroy()
+        _binding = null
     }
 
     override fun onLowMemory() {
@@ -182,10 +191,12 @@ class MapFragment : Fragment() {
             locationComponent.cameraMode = CameraMode.TRACKING
             locationComponent.renderMode = RenderMode.COMPASS
 
-            myLocation = LatLng(
-                locationComponent.lastKnownLocation?.latitude as Double,
-                locationComponent.lastKnownLocation?.longitude as Double
-            )
+            if (locationComponent.lastKnownLocation?.latitude != null && locationComponent.lastKnownLocation?.longitude != null) {
+                myLocation = LatLng(
+                    locationComponent.lastKnownLocation?.latitude as Double,
+                    locationComponent.lastKnownLocation?.longitude as Double
+                )
+            }
         } else {
             permissionsManager = PermissionsManager(object : PermissionsListener {
                 override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {

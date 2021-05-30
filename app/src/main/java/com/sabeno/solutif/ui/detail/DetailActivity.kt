@@ -24,9 +24,6 @@ class DetailActivity : AppCompatActivity() {
         private const val ICON_ID = "ICON_ID"
     }
 
-//    private val detailViewModel: DetailViewModel by inject()
-
-//    private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
     private lateinit var binding: ActivityDetailBinding
 

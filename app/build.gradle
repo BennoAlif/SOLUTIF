@@ -81,9 +81,12 @@ dependencies {
     implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:$mapbox_annotation_version"
     implementation "com.mapbox.mapboxsdk:mapbox-android-telemetry:$mapbox_telemetry"
 
+    implementation "com.google.android.gms:play-services-location:$service_location_version"
+
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
 
 }

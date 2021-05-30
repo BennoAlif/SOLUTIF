@@ -27,10 +27,10 @@ class ReportAdapter(options: FirestoreRecyclerOptions<Report>) :
     override fun onBindViewHolder(holder: ReportViewHolder, position: Int, model: Report) {
         holder.bind(model)
         val data = snapshots.getSnapshot(position).toObject(Report::class.java)
-        data?.id = snapshots.getSnapshot(position).id
+        val id = snapshots.getSnapshot(position).id
         holder.itemView.setOnClickListener {
             if (data != null) {
-                onItemClickCallback.onItemClicked(data)
+                onItemClickCallback.onItemClicked(data, id)
             }
         }
     }
@@ -48,6 +48,6 @@ class ReportAdapter(options: FirestoreRecyclerOptions<Report>) :
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(report: Report)
+        fun onItemClicked(report: Report, id: String)
     }
 }

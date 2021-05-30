@@ -53,7 +53,11 @@ ext {
     mapbox_annotation_version = "0.8.0"
     mapbox_telemetry = "6.1.0"
 
+    service_location_version = "18.0.0"
+
     junit_version = "4.13.2"
     androidx_junit_version = "1.1.2"
     espresso_version = "3.3.0"
+
+    leakcanary_version = "2.4"
 }

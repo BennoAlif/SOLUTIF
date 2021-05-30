@@ -6,12 +6,11 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import com.sabeno.solutif.data.source.Report
 import com.sabeno.solutif.data.source.User
 import com.sabeno.solutif.repository.IReportRepository
-import com.sabeno.solutif.utils.await
 import com.sabeno.solutif.utils.Result
+import com.sabeno.solutif.utils.await
 
 class ReportRepository : IReportRepository {
     private val TAG = "ReportRepository"
@@ -21,9 +20,6 @@ class ReportRepository : IReportRepository {
     private val reportCollection = firestoreInstance.collection("reports")
 
     private val firebaseAuth = Firebase.auth
-
-    private val storage = Firebase.storage
-    private val storageRef = storage.reference
 
     override suspend fun loginUser(email: String, password: String): Result<FirebaseUser?> {
         try {
@@ -85,7 +81,6 @@ class ReportRepository : IReportRepository {
                     for (response in resultDocumentSnapshot.data) {
                         with(response) {
                             val report = Report(
-                                this.id,
                                 this.getString("description"),
                                 this.getDouble("latitude"),
                                 this.getDouble("longitude"),
@@ -101,7 +96,7 @@ class ReportRepository : IReportRepository {
                 is Result.Error -> Result.Error(resultDocumentSnapshot.exception)
                 is Result.Canceled -> Result.Canceled(resultDocumentSnapshot.exception)
             }
-        }catch (exception: Exception) {
+        } catch (exception: Exception) {
             Result.Error(exception)
         }
     }
@@ -116,6 +111,14 @@ class ReportRepository : IReportRepository {
                 is Result.Error -> Result.Error(resultDocumentSnapshot.exception)
                 is Result.Canceled -> Result.Canceled(resultDocumentSnapshot.exception)
             }
+        } catch (exception: Exception) {
+            Result.Error(exception)
+        }
+    }
+
+    override suspend fun createReport(report: Report): Result<Void?> {
+        return try {
+            reportCollection.document().set(report).await()
         } catch (exception: Exception) {
             Result.Error(exception)
         }

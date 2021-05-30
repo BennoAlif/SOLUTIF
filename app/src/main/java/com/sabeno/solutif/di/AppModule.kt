@@ -2,6 +2,7 @@ package com.sabeno.solutif.di
 
 import com.sabeno.solutif.data.ReportRepository
 import com.sabeno.solutif.ui.AuthViewModel
+import com.sabeno.solutif.ui.create.CreateReportViewModel
 import com.sabeno.solutif.ui.detail.DetailViewModel
 import com.sabeno.solutif.ui.map.MapViewModel
 import com.sabeno.solutif.ui.report.ReportViewModel
@@ -21,4 +22,8 @@ val reportViewModelModule = module {
 
 val mapViewModelModule = module {
     single { MapViewModel(ReportRepository()) }
+}
+
+val createReportViewModelModule = module {
+    single { CreateReportViewModel(ReportRepository()) }
 }
