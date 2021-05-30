@@ -14,4 +14,15 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Theme.SOLUTIF.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.SOLUTIF.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.SOLUTIF.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    
+    <item name="backgroundDetail" type="drawable">@drawable/detail_rounded_bg</item>
+
 </resources>

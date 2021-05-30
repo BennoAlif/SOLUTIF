@@ -1,13 +1,45 @@
 package com.sabeno.solutif.ui.map
 
+import android.app.Activity
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.sabeno.solutif.R
+import com.sabeno.solutif.data.source.Report
+import com.sabeno.solutif.repository.IReportRepository
+import com.sabeno.solutif.utils.Result
+import kotlinx.coroutines.launch
 
-class MapViewModel : ViewModel() {
+class MapViewModel(private var IReportRepository: IReportRepository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    var listReport = MutableLiveData<List<Report>?>()
+
+    private val _toast = MutableLiveData<String?>()
+    val toast: LiveData<String?>
+        get() = _toast
+
+    suspend fun setReports(activity: Activity) {
+        when (val result = IReportRepository.getReports()) {
+            is Result.Success -> {
+                listReport.postValue(result.data)
+            }
+            is Result.Error -> {
+                _toast.value = result.exception.message
+            }
+            is Result.Canceled -> {
+                _toast.value = activity.getString(R.string.request_canceled)
+            }
+        }
     }
-    val text: LiveData<String> = _text
+
+    fun getReports() : LiveData<List<Report>?> {
+        return listReport
+    }
+
+    fun onToastShown() {
+        _toast.value = null
+    }
 }
