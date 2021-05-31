@@ -2,6 +2,7 @@ package com.sabeno.solutif.ui.detail
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,6 +32,25 @@ class DetailViewModel(private val IReportRepository: IReportRepository) : ViewMo
                 block()
             } catch (error: Throwable) {
                 _toast.value = error.message
+            }
+        }
+    }
+
+    suspend fun updateReportStatus(reportId: String, isDone: Boolean, activity: Activity) {
+        Log.d("STATUS_REPORT", isDone.toString())
+        launchDataLoad {
+            when (val result = IReportRepository.updateReportStatus(reportId, isDone)) {
+                is Result.Success -> {
+                    _spinner.value = false
+                }
+                is Result.Error -> {
+                    _toast.value = result.exception.message
+                    _spinner.value = false
+                }
+                is Result.Canceled -> {
+                    _toast.value = activity.getString(R.string.request_canceled)
+                    _spinner.value = false
+                }
             }
         }
     }

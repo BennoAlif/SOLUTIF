@@ -4,6 +4,7 @@ import android.util.Log
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.sabeno.solutif.data.source.Report
@@ -119,6 +120,15 @@ class ReportRepository : IReportRepository {
     override suspend fun createReport(report: Report): Result<Void?> {
         return try {
             reportCollection.document().set(report).await()
+        } catch (exception: Exception) {
+            Result.Error(exception)
+        }
+    }
+
+    override suspend fun updateReportStatus(reportId: String, isDone: Boolean): Result<Void?> {
+        return try {
+            val data = hashMapOf("isDone" to isDone)
+            reportCollection.document(reportId).set(data, SetOptions.merge()).await()
         } catch (exception: Exception) {
             Result.Error(exception)
         }

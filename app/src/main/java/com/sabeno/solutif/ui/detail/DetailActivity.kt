@@ -3,9 +3,11 @@ package com.sabeno.solutif.ui.detail
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
@@ -48,6 +50,23 @@ class DetailActivity : AppCompatActivity() {
 
         val reportId = intent.getStringExtra(EXTRA_ID)
         val reportData = intent.getParcelableExtra<Report>(EXTRA_REPORT)
+
+        var statusReport = reportData?.isDone
+
+        setIsDone(statusReport)
+        binding.fab.setOnClickListener {
+            statusReport = !statusReport!!
+            setIsDone(statusReport)
+            coroutineScope.launch {
+                if (reportId != null) {
+                    detailViewModel.updateReportStatus(
+                        reportId,
+                        statusReport!!,
+                        this@DetailActivity
+                    )
+                }
+            }
+        }
 
         binding.content.mapView.onCreate(savedInstanceState)
         binding.content.mapView.getMapAsync { mapboxMap ->
@@ -156,6 +175,14 @@ class DetailActivity : AppCompatActivity() {
 
             mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(reportLocation, 15.0))
 
+        }
+    }
+
+    private fun setIsDone(isDone: Boolean?) {
+        if (isDone == true) {
+            binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_close))
+        } else {
+            binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_done))
         }
     }
 
