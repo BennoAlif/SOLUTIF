@@ -45,6 +45,16 @@
             app:mapbox_cameraTargetLng="111"
             app:mapbox_cameraZoom="15" />
 
+        <android.widget.Button
+            android:textColor="@color/white"
+            android:id="@+id/btn_delete"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/rounded_corners_red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_report"
+            />
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

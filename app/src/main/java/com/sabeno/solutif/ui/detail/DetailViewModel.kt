@@ -1,6 +1,7 @@
 package com.sabeno.solutif.ui.detail
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import com.sabeno.solutif.R
 import com.sabeno.solutif.data.source.Report
 import com.sabeno.solutif.data.source.User
 import com.sabeno.solutif.repository.IReportRepository
+import com.sabeno.solutif.ui.MainActivity
 import com.sabeno.solutif.utils.Result
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -22,11 +24,6 @@ class DetailViewModel(private val IReportRepository: IReportRepository) : ViewMo
     val spinner: LiveData<Boolean>
         get() = _spinner
 
-    private val _currentReport = MutableLiveData(Report())
-    val currentReport: LiveData<Report>
-        get() = _currentReport
-
-
     private fun launchDataLoad(block: suspend () -> Unit): Job {
         return viewModelScope.launch {
             try {
@@ -38,16 +35,12 @@ class DetailViewModel(private val IReportRepository: IReportRepository) : ViewMo
         }
     }
 
-    fun onToastShown() {
-        _toast.value = null
-    }
-
-    suspend fun getReportById(reportId: String, activity: Activity) {
+    suspend fun deleteReport(reportId: String, activity: Activity) {
         launchDataLoad {
-            when (val result = IReportRepository.getReportById(reportId)) {
+            when (val result = IReportRepository.deleteReport(reportId)) {
                 is Result.Success -> {
-                    val report = result.data
-                    _currentReport.value = report
+                    val intent = Intent(activity, MainActivity::class.java)
+                    activity.startActivity(intent)
                     _spinner.value = false
                 }
                 is Result.Error -> {
@@ -61,4 +54,9 @@ class DetailViewModel(private val IReportRepository: IReportRepository) : ViewMo
             }
         }
     }
+
+    fun onToastShown() {
+        _toast.value = null
+    }
+
 }

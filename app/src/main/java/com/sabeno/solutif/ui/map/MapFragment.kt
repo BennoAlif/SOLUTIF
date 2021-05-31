@@ -44,8 +44,7 @@ class MapFragment : Fragment() {
 
     private val mapViewModel: MapViewModel by inject()
 
-    private var _binding: FragmentMapBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentMapBinding
 
     private lateinit var mapboxMap: MapboxMap
     private lateinit var locationComponent: LocationComponent
@@ -59,7 +58,7 @@ class MapFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMapBinding.inflate(inflater, container, false)
+        binding = FragmentMapBinding.inflate(inflater, container, false)
         binding.mapView.onCreate(savedInstanceState)
         return binding.root
     }
@@ -108,10 +107,9 @@ class MapFragment : Fragment() {
         binding.mapView.onSaveInstanceState(outState)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding.mapView.onDestroy()
-        _binding = null
     }
 
     override fun onLowMemory() {

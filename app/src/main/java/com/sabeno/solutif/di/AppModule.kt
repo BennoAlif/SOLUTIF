@@ -16,9 +16,9 @@ val reportViewModelModule = module {
     single { ReportViewModel(ReportRepository()) }
 }
 
-//val detailViewModelModule = module {
-//    single { DetailViewModel(ReportRepository()) }
-//}
+val detailViewModelModule = module {
+    single { DetailViewModel(ReportRepository()) }
+}
 
 val mapViewModelModule = module {
     single { MapViewModel(ReportRepository()) }

@@ -23,4 +23,5 @@ interface IReportRepository {
     suspend fun getReports(): Result<List<Report>?>
     suspend fun getReportById(reportId: String): Result<Report>?
     suspend fun createReport(report: Report): Result<Void?>
+    suspend fun deleteReport(reportId: String): Result<Void?>
 }

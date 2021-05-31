@@ -3,6 +3,8 @@ package com.sabeno.solutif.ui.detail
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.mapbox.mapboxsdk.Mapbox
@@ -15,6 +17,10 @@ import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
 import com.sabeno.solutif.R
 import com.sabeno.solutif.data.source.Report
 import com.sabeno.solutif.databinding.ActivityDetailBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class DetailActivity : AppCompatActivity() {
 
@@ -24,6 +30,8 @@ class DetailActivity : AppCompatActivity() {
         private const val ICON_ID = "ICON_ID"
     }
 
+    private val detailViewModel: DetailViewModel by inject()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
     private lateinit var binding: ActivityDetailBinding
 
@@ -50,8 +58,29 @@ class DetailActivity : AppCompatActivity() {
             }
         }
 
+        detailViewModel.spinner.observe(this, { value ->
+            value.let { show ->
+                binding.content.btnDelete.isEnabled = !show
+            }
+        })
+
+        detailViewModel.toast.observe(this, { message ->
+            message?.let {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                detailViewModel.onToastShown()
+            }
+        })
+
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.title = resources.getString(R.string.detail_laporan)
+
+        binding.content.btnDelete.setOnClickListener {
+            coroutineScope.launch {
+                if (reportId != null) {
+                    detailViewModel.deleteReport(reportId, this@DetailActivity)
+                }
+            }
+        }
     }
 
     override fun onStart() {
@@ -90,14 +119,14 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun getReportData(report: Report) {
-            binding.content.tvDesc.text = report.description
-            binding.content.tvTimestamp.text = report.createdAt?.toDate().toString()
-            Glide.with(this)
-                .load(report.photoUrl)
-                .into(binding.ivPhoto)
+        binding.content.tvDesc.text = report.description
+        binding.content.tvTimestamp.text = report.createdAt?.toDate().toString()
+        Glide.with(this)
+            .load(report.photoUrl)
+            .into(binding.ivPhoto)
 
-            reportLocation = LatLng(report.latitude!!, report.longitude!!)
-            showMarker(reportLocation)
+        reportLocation = LatLng(report.latitude!!, report.longitude!!)
+        showMarker(reportLocation)
     }
 
     private fun showMarker(latLong: LatLng) {

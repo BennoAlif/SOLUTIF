@@ -124,4 +124,13 @@ class ReportRepository : IReportRepository {
         }
     }
 
+    override suspend fun deleteReport(reportId: String): Result<Void?> {
+        return try {
+            reportCollection.document(reportId).delete().await()
+        } catch (exception: Exception) {
+            Result.Error(exception)
+        }
+    }
+
+
 }

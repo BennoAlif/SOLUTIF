@@ -123,4 +123,5 @@
     <string name="desc_not_valid">Deskripsi tidak valid</string>
     <string name="desc_is_empty">Form tidak boleh kosong</string>
     <string name="desc_is_51">Form tidak boleh lebih dari 50 karakter</string>
+    <string name="delete_report">Hapus laporan</string>
 </resources>
