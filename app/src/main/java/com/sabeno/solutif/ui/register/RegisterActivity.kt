@@ -3,6 +3,8 @@ package com.sabeno.solutif.ui.register
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.sabeno.solutif.R
@@ -18,6 +20,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private val authViewModel: AuthViewModel by inject()
 
+    private var isPetugas: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -29,6 +33,7 @@ class RegisterActivity : AppCompatActivity() {
                     binding?.tietRegisterName?.text.toString(),
                     binding?.tietRegisterEmail?.text.toString(),
                     binding?.tietRegisterPassword?.text.toString(),
+                    isPetugas,
                     this
                 )
             }
@@ -49,6 +54,32 @@ class RegisterActivity : AppCompatActivity() {
 
         binding?.tvLogin?.setOnClickListener {
             startLoginActivity()
+        }
+
+        val roles = resources.getStringArray(R.array.roles_array)
+
+        val vRoles = binding?.role
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, roles)
+        if (vRoles != null) {
+            vRoles.adapter = adapter
+        }
+
+        if (vRoles != null) {
+            vRoles.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    isPetugas = position != 0
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+            }
         }
     }
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="description">Description</string>
+    <string name="timestamp">timestamp</string>
+    <string name="photo_report">Photo report</string>
+    <string name="is_done">Selesai</string>
+</resources>

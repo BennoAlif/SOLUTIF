@@ -7,9 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sabeno.solutif.R
-import com.sabeno.solutif.repository.IReportRepository
+import com.sabeno.solutif.core.repository.IReportRepository
 import com.sabeno.solutif.ui.MainActivity
-import com.sabeno.solutif.utils.Result
+import com.sabeno.solutif.core.utils.Result
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 

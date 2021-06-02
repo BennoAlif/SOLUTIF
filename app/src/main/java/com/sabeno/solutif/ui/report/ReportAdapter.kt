@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.sabeno.solutif.data.source.Report
-import com.sabeno.solutif.databinding.ItemReportBinding
+import com.sabeno.solutif.core.data.source.Report
+import com.sabeno.solutif.core.databinding.ItemReportBinding
 
 class ReportAdapter(options: FirestoreRecyclerOptions<Report>) :
     FirestoreRecyclerAdapter<Report, ReportAdapter.ReportViewHolder>(options) {

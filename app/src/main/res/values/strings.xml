@@ -36,4 +36,11 @@
     <string name="password_validate">Gunakan minimal 6 karakter</string>
     <string name="name_validate">Gunakan minimal 3 karakter</string>
     <string name="menuju_lokasi">Menuju lokasi</string>
+    <string name="roles">Roles</string>
+    <string name="petugas">Petugas</string>
+    <string name="pelapor">Pelapor</string>
+    <string-array name="roles_array">
+        <item>Pelapor</item>
+        <item>Petugas</item>
+    </string-array>
 </resources>

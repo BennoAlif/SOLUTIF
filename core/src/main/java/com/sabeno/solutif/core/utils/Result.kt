@@ -1,4 +1,4 @@
-package com.sabeno.solutif.utils
+package com.sabeno.solutif.core.utils
 
 sealed class Result<out R> {
     data class Success<out T>(val data: T) : Result<T>()

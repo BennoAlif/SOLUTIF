@@ -1,4 +1,4 @@
-package com.sabeno.solutif.utils
+package com.sabeno.solutif.core.utils
 
 import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -14,7 +14,7 @@ suspend fun <T> Task<T>.await(): Result<T> {
                 Result.Canceled(CancellationException("Task $this was cancelled normally."))
             } else {
                 @Suppress("UNCHECKED_CAST")
-                Result.Success(result as T)
+                (Result.Success(result as T))
             }
         } else {
             Result.Error(e)

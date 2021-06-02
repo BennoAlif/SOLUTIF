@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sabeno.solutif.R
-import com.sabeno.solutif.data.source.Report
-import com.sabeno.solutif.repository.IReportRepository
-import com.sabeno.solutif.utils.Result
+import com.sabeno.solutif.core.data.source.Report
+import com.sabeno.solutif.core.repository.IReportRepository
+import com.sabeno.solutif.core.utils.Result
 
 class MapViewModel(private var IReportRepository: IReportRepository) : ViewModel() {
 

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.sabeno.solutif.data.source.Report
+import com.sabeno.solutif.core.data.source.Report
 import com.sabeno.solutif.databinding.FragmentReportBinding
 import com.sabeno.solutif.ui.detail.DetailActivity
 import org.koin.android.ext.android.inject

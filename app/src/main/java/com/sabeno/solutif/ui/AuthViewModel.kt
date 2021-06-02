@@ -8,11 +8,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
 import com.sabeno.solutif.R
-import com.sabeno.solutif.data.source.User
-import com.sabeno.solutif.repository.IReportRepository
+import com.sabeno.solutif.core.data.source.User
+import com.sabeno.solutif.core.repository.IReportRepository
 import com.sabeno.solutif.ui.login.LoginActivity
 import com.sabeno.solutif.ui.register.RegisterActivity
-import com.sabeno.solutif.utils.Result
+import com.sabeno.solutif.core.utils.Result
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -53,14 +53,14 @@ class AuthViewModel(private val IReportRepository: IReportRepository) : ViewMode
         }
     }
 
-    fun registerUser(name: String, email: String, password: String, activity: Activity) {
+    fun registerUser(name: String, email: String, password: String, isPetugas: Boolean, activity: Activity) {
         launchDataLoad {
             viewModelScope.launch {
                 when (val result =
                     IReportRepository.registerUser(email, password, activity.applicationContext)) {
                     is Result.Success -> {
                         result.data?.let { firebaseUser ->
-                            createUserFirestore(createUserObject(firebaseUser, name, email), activity)
+                            createUserFirestore(createUserObject(firebaseUser, name, email, isPetugas), activity)
                         }
                         _spinner.value = false
                     }
@@ -152,8 +152,9 @@ class AuthViewModel(private val IReportRepository: IReportRepository) : ViewMode
     private fun createUserObject(
         firebaseUser: FirebaseUser,
         name: String,
-        email: String
+        email: String,
+        isPetugas: Boolean
     ): User {
-        return User(id = firebaseUser.uid, email, name)
+        return User(id = firebaseUser.uid, email, name, isPetugas)
     }
 }

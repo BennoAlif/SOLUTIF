@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -28,8 +29,9 @@ import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute
 import com.sabeno.solutif.R
-import com.sabeno.solutif.data.source.Report
+import com.sabeno.solutif.core.data.source.Report
 import com.sabeno.solutif.databinding.ActivityDetailBinding
+import com.sabeno.solutif.ui.AuthViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,6 +48,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private val detailViewModel: DetailViewModel by inject()
+    private val authViewModel: AuthViewModel by inject()
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
     private lateinit var binding: ActivityDetailBinding
@@ -131,6 +134,11 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         }
+
+        authViewModel.currentUserLD.observe(this, { currentUser ->
+            binding.fab.isGone = currentUser.isPetugas == false
+            binding.content.btnRoute.isGone = currentUser.isPetugas == false
+        })
 
         generateCurrentLocation()
     }

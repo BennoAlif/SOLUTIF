@@ -1,11 +1,11 @@
-package com.sabeno.solutif.repository
+package com.sabeno.solutif.core.repository
 
 import android.content.Context
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseUser
-import com.sabeno.solutif.data.source.Report
-import com.sabeno.solutif.data.source.User
-import com.sabeno.solutif.utils.Result
+import com.sabeno.solutif.core.data.source.Report
+import com.sabeno.solutif.core.data.source.User
+import com.sabeno.solutif.core.utils.Result
 
 
 interface IReportRepository {

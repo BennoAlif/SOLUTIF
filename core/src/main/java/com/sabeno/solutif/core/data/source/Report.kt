@@ -1,4 +1,4 @@
-package com.sabeno.solutif.data.source
+package com.sabeno.solutif.core.data.source
 
 import android.os.Parcelable
 import com.google.firebase.Timestamp

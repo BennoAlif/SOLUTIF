@@ -1,2 +1,3 @@
 rootProject.name = "SOLUTIF"
 include ':app'
+include ':core'

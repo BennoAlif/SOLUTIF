@@ -1,6 +1,6 @@
 package com.sabeno.solutif.di
 
-import com.sabeno.solutif.data.ReportRepository
+import com.sabeno.solutif.core.data.ReportRepository
 import com.sabeno.solutif.ui.AuthViewModel
 import com.sabeno.solutif.ui.create.CreateReportViewModel
 import com.sabeno.solutif.ui.detail.DetailViewModel

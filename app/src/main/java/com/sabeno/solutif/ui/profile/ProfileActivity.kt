@@ -26,6 +26,12 @@ class ProfileActivity : AppCompatActivity() {
         authViewModel.currentUserLD.observe(this, { currentUser ->
             binding?.tvEmail?.text = currentUser.email
             binding?.tvUsername?.text = currentUser.name
+            var roles = getString(R.string.petugas)
+            when (currentUser.isPetugas) {
+                true -> roles = getString(R.string.petugas)
+                false -> roles = getString(R.string.pelapor)
+            }
+            binding?.tvRole?.text = roles
         })
 
         binding?.btnLogout?.setOnClickListener {

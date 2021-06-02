@@ -28,7 +28,7 @@ import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
 import com.sabeno.solutif.R
-import com.sabeno.solutif.data.source.Report
+import com.sabeno.solutif.core.data.source.Report
 import com.sabeno.solutif.databinding.FragmentMapBinding
 import com.sabeno.solutif.ui.detail.DetailActivity
 import kotlinx.coroutines.CoroutineScope

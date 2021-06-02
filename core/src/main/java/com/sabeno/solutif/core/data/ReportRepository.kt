@@ -1,4 +1,4 @@
-package com.sabeno.solutif.data
+package com.sabeno.solutif.core.data
 
 import android.content.Context
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -7,11 +7,11 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.sabeno.solutif.data.source.Report
-import com.sabeno.solutif.data.source.User
-import com.sabeno.solutif.repository.IReportRepository
-import com.sabeno.solutif.utils.Result
-import com.sabeno.solutif.utils.await
+import com.sabeno.solutif.core.data.source.Report
+import com.sabeno.solutif.core.data.source.User
+import com.sabeno.solutif.core.repository.IReportRepository
+import com.sabeno.solutif.core.utils.Result
+import com.sabeno.solutif.core.utils.await
 
 class ReportRepository : IReportRepository {
 
