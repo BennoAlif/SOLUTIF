@@ -1,5 +1,6 @@
 package com.sabeno.solutif.data
 
+import android.content.Context
 import android.util.Log
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseUser
@@ -21,6 +22,40 @@ class ReportRepository : IReportRepository {
     private val reportCollection = firestoreInstance.collection("reports")
 
     private val firebaseAuth = Firebase.auth
+    override suspend fun registerUser(
+        email: String,
+        password: String,
+        context: Context
+    ): Result<FirebaseUser?> {
+        try {
+            return when (val resultDocumentSnapshot =
+                firebaseAuth.createUserWithEmailAndPassword(email, password).await()) {
+                is Result.Success -> {
+                    Log.i(TAG, "Result.Success")
+                    val firebaseUser = resultDocumentSnapshot.data.user
+                    Result.Success(firebaseUser)
+                }
+                is Result.Error -> {
+                    Log.e(TAG, "${resultDocumentSnapshot.exception}")
+                    Result.Error(resultDocumentSnapshot.exception)
+                }
+                is Result.Canceled -> {
+                    Log.e(TAG, "${resultDocumentSnapshot.exception}")
+                    Result.Canceled(resultDocumentSnapshot.exception)
+                }
+            }
+        } catch (exception: Exception) {
+            return Result.Error(exception)
+        }
+    }
+
+    override suspend fun createUserFirestore(user: User): Result<Void?> {
+        return try {
+            userCollection.document(user.id.toString()).set(user).await()
+        } catch (exception: Exception) {
+            Result.Error(exception)
+        }
+    }
 
     override suspend fun loginUser(email: String, password: String): Result<FirebaseUser?> {
         try {

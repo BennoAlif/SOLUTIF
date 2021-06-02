@@ -1,5 +1,6 @@
 package com.sabeno.solutif.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.sabeno.solutif.R
 import com.sabeno.solutif.databinding.ActivityLoginBinding
 import com.sabeno.solutif.ui.AuthViewModel
+import com.sabeno.solutif.ui.register.RegisterActivity
 import org.koin.android.ext.android.inject
 
 class LoginActivity : AppCompatActivity() {
@@ -45,6 +47,15 @@ class LoginActivity : AppCompatActivity() {
                 authViewModel.onToastShown()
             }
         })
+
+        binding?.tvRegister?.setOnClickListener {
+            startRegisterActivity()
+        }
+    }
+
+    private fun startRegisterActivity() {
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onDestroy() {

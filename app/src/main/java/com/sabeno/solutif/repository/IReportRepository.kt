@@ -1,5 +1,6 @@
 package com.sabeno.solutif.repository
 
+import android.content.Context
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseUser
 import com.sabeno.solutif.data.source.Report
@@ -8,6 +9,8 @@ import com.sabeno.solutif.utils.Result
 
 
 interface IReportRepository {
+    suspend fun registerUser(email: String, password: String, context: Context): Result<FirebaseUser?>
+    suspend fun createUserFirestore(user: User): Result<Void?>
     suspend fun loginUser(
         email: String,
         password: String

@@ -2,6 +2,7 @@ package com.sabeno.solutif.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.sabeno.solutif.R
 import com.sabeno.solutif.data.source.User
 import com.sabeno.solutif.repository.IReportRepository
+import com.sabeno.solutif.ui.login.LoginActivity
+import com.sabeno.solutif.ui.register.RegisterActivity
 import com.sabeno.solutif.utils.Result
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -51,9 +54,56 @@ class AuthViewModel(private val IReportRepository: IReportRepository) : ViewMode
         }
     }
 
+    fun registerUser(name: String, email: String, password: String, activity: Activity) {
+        launchDataLoad {
+            viewModelScope.launch {
+                when (val result =
+                    IReportRepository.registerUser(email, password, activity.applicationContext)) {
+                    is Result.Success -> {
+                        result.data?.let { firebaseUser ->
+                            createUserFirestore(createUserObject(firebaseUser, name, email), activity)
+                        }
+                        _spinner.value = false
+                    }
+                    is Result.Error -> {
+                        _toast.value = result.exception.message
+                        _spinner.value = false
+                    }
+                    is Result.Canceled -> {
+                        _toast.value = activity.getString(R.string.request_canceled)
+                        _spinner.value = false
+                    }
+                }
+            }
+        }
+    }
+
     fun logOutUser() {
         viewModelScope.launch {
             IReportRepository.logoutUser()
+        }
+    }
+
+    private suspend fun createUserFirestore(user: User, activity: Activity) {
+        when (val result = IReportRepository.createUserFirestore(user)) {
+            is Result.Success -> {
+                when (activity) {
+                    is RegisterActivity -> {
+                        _toast.value = activity.getString(R.string.registration_successful)
+                    }
+                    is LoginActivity -> {
+                        _toast.value = activity.getString(R.string.login_successful)
+                    }
+                }
+                _currentUserMLD.value = user
+                startMainActivity(activity)
+            }
+            is Result.Error -> {
+                _toast.value = result.exception.message
+            }
+            is Result.Canceled -> {
+                _toast.value = activity.getString(R.string.request_canceled)
+            }
         }
     }
 
@@ -99,5 +149,12 @@ class AuthViewModel(private val IReportRepository: IReportRepository) : ViewMode
             firebaseUser = IReportRepository.checkUserLoggedIn()
         }
         return firebaseUser
+    }
+    private fun createUserObject(
+        firebaseUser: FirebaseUser,
+        name: String,
+        email: String
+    ): User {
+        return User(id = firebaseUser.uid, email, name)
     }
 }
