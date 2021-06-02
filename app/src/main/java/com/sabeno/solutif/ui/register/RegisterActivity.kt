@@ -1,11 +1,10 @@
 package com.sabeno.solutif.ui.register
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.sabeno.solutif.R
 import com.sabeno.solutif.databinding.ActivityRegisterBinding
 import com.sabeno.solutif.ui.AuthViewModel

@@ -1,7 +1,6 @@
 package com.sabeno.solutif.data
 
 import android.content.Context
-import android.util.Log
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -15,7 +14,6 @@ import com.sabeno.solutif.utils.Result
 import com.sabeno.solutif.utils.await
 
 class ReportRepository : IReportRepository {
-    private val TAG = "ReportRepository"
 
     private val firestoreInstance = Firebase.firestore
     private val userCollection = firestoreInstance.collection("users")
@@ -31,16 +29,13 @@ class ReportRepository : IReportRepository {
             return when (val resultDocumentSnapshot =
                 firebaseAuth.createUserWithEmailAndPassword(email, password).await()) {
                 is Result.Success -> {
-                    Log.i(TAG, "Result.Success")
                     val firebaseUser = resultDocumentSnapshot.data.user
                     Result.Success(firebaseUser)
                 }
                 is Result.Error -> {
-                    Log.e(TAG, "${resultDocumentSnapshot.exception}")
                     Result.Error(resultDocumentSnapshot.exception)
                 }
                 is Result.Canceled -> {
-                    Log.e(TAG, "${resultDocumentSnapshot.exception}")
                     Result.Canceled(resultDocumentSnapshot.exception)
                 }
             }
@@ -62,16 +57,13 @@ class ReportRepository : IReportRepository {
             return when (val resultDocumentSnapshot =
                 firebaseAuth.signInWithEmailAndPassword(email, password).await()) {
                 is Result.Success -> {
-                    Log.i(TAG, "Result.Success")
                     val firebaseUser = resultDocumentSnapshot.data.user
                     Result.Success(firebaseUser)
                 }
                 is Result.Error -> {
-                    Log.e(TAG, "${resultDocumentSnapshot.exception}")
                     Result.Error(resultDocumentSnapshot.exception)
                 }
                 is Result.Canceled -> {
-                    Log.e(TAG, "${resultDocumentSnapshot.exception}")
                     Result.Canceled(resultDocumentSnapshot.exception)
                 }
             }

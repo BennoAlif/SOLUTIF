@@ -78,7 +78,8 @@ dependencies {
 
     // Mapbox
     implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:$mapbox_version"
-    implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:$mapbox_annotation_version"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v8:$mapbox_annotation_version"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-navigation-ui:$mapbox_navigation_ui"
     implementation "com.mapbox.mapboxsdk:mapbox-android-telemetry:$mapbox_telemetry"
 
     implementation "com.google.android.gms:play-services-location:$service_location_version"

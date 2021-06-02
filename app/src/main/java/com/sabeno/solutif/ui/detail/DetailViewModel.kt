@@ -2,14 +2,11 @@ package com.sabeno.solutif.ui.detail
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sabeno.solutif.R
-import com.sabeno.solutif.data.source.Report
-import com.sabeno.solutif.data.source.User
 import com.sabeno.solutif.repository.IReportRepository
 import com.sabeno.solutif.ui.MainActivity
 import com.sabeno.solutif.utils.Result
@@ -37,7 +34,6 @@ class DetailViewModel(private val IReportRepository: IReportRepository) : ViewMo
     }
 
     suspend fun updateReportStatus(reportId: String, isDone: Boolean, activity: Activity) {
-        Log.d("STATUS_REPORT", isDone.toString())
         launchDataLoad {
             when (val result = IReportRepository.updateReportStatus(reportId, isDone)) {
                 is Result.Success -> {

@@ -1,14 +1,21 @@
 package com.sabeno.solutif.ui.detail
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.mapbox.api.directions.v5.models.DirectionsResponse
+import com.mapbox.api.directions.v5.models.DirectionsRoute
+import com.mapbox.geojson.Point
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
@@ -16,6 +23,10 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions
+import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
+import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute
 import com.sabeno.solutif.R
 import com.sabeno.solutif.data.source.Report
 import com.sabeno.solutif.databinding.ActivityDetailBinding
@@ -23,6 +34,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import retrofit2.Call
+import retrofit2.Response
 
 class DetailActivity : AppCompatActivity() {
 
@@ -39,6 +52,14 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var mapboxMap: MapboxMap
     private lateinit var symbolManager: SymbolManager
+    private lateinit var navigationMapRoute: NavigationMapRoute
+    private var currentRoute: DirectionsRoute? = null
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationManager: LocationManager
+
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
 
     private var reportLocation = LatLng()
 
@@ -47,6 +68,9 @@ class DetailActivity : AppCompatActivity() {
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         val reportId = intent.getStringExtra(EXTRA_ID)
         val reportData = intent.getParcelableExtra<Report>(EXTRA_REPORT)
@@ -72,8 +96,15 @@ class DetailActivity : AppCompatActivity() {
         binding.content.mapView.getMapAsync { mapboxMap ->
             this.mapboxMap = mapboxMap
             mapboxMap.uiSettings.isScrollGesturesEnabled = false
+
             if (reportData != null) {
                 getReportData(reportData)
+            }
+
+            binding.content.btnRoute.setOnClickListener {
+                val destination = Point.fromLngLat(reportData?.longitude!!, reportData.latitude!!)
+                val origin = Point.fromLngLat(longitude, latitude)
+                requestRoute(origin, destination)
             }
         }
 
@@ -100,6 +131,8 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         }
+
+        generateCurrentLocation()
     }
 
     override fun onStart() {
@@ -175,6 +208,12 @@ class DetailActivity : AppCompatActivity() {
 
             mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(reportLocation, 15.0))
 
+            navigationMapRoute = NavigationMapRoute(
+                null,
+                binding.content.mapView,
+                mapboxMap,
+                R.style.NavigationMapRoute
+            )
         }
     }
 
@@ -184,6 +223,67 @@ class DetailActivity : AppCompatActivity() {
         } else {
             binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_done))
         }
+    }
+
+    private fun requestRoute(origin: Point, destination: Point) {
+        navigationMapRoute.updateRouteVisibilityTo(false)
+        NavigationRoute.builder(this)
+            .accessToken(getString(R.string.mapbox_access_token))
+            .origin(origin)
+            .destination(destination)
+            .build()
+            .getRoute(object : retrofit2.Callback<DirectionsResponse> {
+                override fun onResponse(
+                    call: Call<DirectionsResponse>,
+                    response: Response<DirectionsResponse>
+                ) {
+                    if (response.body() == null) {
+                        Toast.makeText(
+                            this@DetailActivity,
+                            "No routes found, make sure you set the right user and access token.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return
+                    } else if (response.body()?.routes()?.size == 0) {
+                        Toast.makeText(this@DetailActivity, "No routes found.", Toast.LENGTH_SHORT)
+                            .show()
+                        return
+                    }
+                    currentRoute = response.body()?.routes()?.get(0)
+
+                    navigationMapRoute.addRoute(currentRoute)
+
+                    showNavigation()
+                }
+
+                override fun onFailure(call: Call<DirectionsResponse>, t: Throwable) {
+                    Toast.makeText(this@DetailActivity, "Error : $t", Toast.LENGTH_SHORT).show()
+                }
+
+            })
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun generateCurrentLocation() {
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    latitude = location.latitude
+                    longitude = location.longitude
+                }
+            }
+    }
+
+    private fun showNavigation() {
+        val simulateRoute = true
+
+        val options = NavigationLauncherOptions.builder()
+            .directionsRoute(currentRoute)
+            .shouldSimulateRoute(simulateRoute)
+            .build()
+
+        NavigationLauncher.startNavigation(this, options)
+
     }
 
 }

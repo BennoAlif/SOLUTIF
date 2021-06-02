@@ -30,11 +30,11 @@
             android:textSize="24sp" />
 
         <TextView
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="8dp"
             android:id="@+id/tv_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/location" />
 
         <com.mapbox.mapboxsdk.maps.MapView
@@ -45,15 +45,21 @@
             app:mapbox_cameraTargetLng="111"
             app:mapbox_cameraZoom="15" />
 
-        <android.widget.Button
-            android:textColor="@color/white"
-            android:id="@+id/btn_delete"
-            android:layout_marginTop="80dp"
-            android:background="@drawable/rounded_corners_red"
+        <Button
+            android:id="@+id/btn_route"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:background="@drawable/rounded_corners"
+            android:text="@string/menuju_lokasi" />
+
+        <android.widget.Button
+            android:id="@+id/btn_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners_red"
             android:text="@string/delete_report"
-            />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

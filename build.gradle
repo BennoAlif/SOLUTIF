@@ -20,6 +20,7 @@ allprojects {
         google()
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
+        maven { url 'https://mapbox.bintray.com/mapbox' }
     }
 }
 
@@ -50,7 +51,8 @@ ext {
     coroutines = "1.4.3"
 
     mapbox_version = "9.2.0"
-    mapbox_annotation_version = "0.8.0"
+    mapbox_annotation_version = "0.7.0"
+    mapbox_navigation_ui = "0.42.6"
     mapbox_telemetry = "6.1.0"
 
     service_location_version = "18.0.0"
