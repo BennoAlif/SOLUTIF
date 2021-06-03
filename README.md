@@ -8,11 +8,13 @@ An application for monitoring street condition or road traffic condition such as
 
 - [Introduction](#introduction)
 
-- [Features & Screenshots](#features-&-screenshots)
+- [Features & Screenshots](#features--screenshots)
 
 - [Tech Stack](#tech-stack)
 
 - [Dependencies](#dependencies)
+
+- [Download the App](#download-the-app)
 
   
 
@@ -65,3 +67,9 @@ For third-party libraries this project uses the Mapbox API, besides being easy t
 - [Lifecycle & LiveData](https://developer.android.com/jetpack/androidx/releases/lifecycle)
 - [Koin](https://github.com/InsertKoinIO/koin)
 - [Leak Canary](https://github.com/square/leakcanary)
+
+
+
+## Download the App
+
+[Download](https://drive.google.com/file/d/1Frk1aVe8V5HpKMhX6Ib6zwieNSheAZpF/view?usp=sharing)
