@@ -61,6 +61,7 @@ class CreateReportViewModel(private var IReportRepository: IReportRepository) : 
                             false,
                             Timestamp.now()
                         )
+                        _toast.value = "Laporan terkirim"
                         viewModelScope.launch {
                             createReport(report, activity)
                         }

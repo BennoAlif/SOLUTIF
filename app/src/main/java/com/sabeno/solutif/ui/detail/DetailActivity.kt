@@ -114,6 +114,7 @@ class DetailActivity : AppCompatActivity() {
         detailViewModel.spinner.observe(this, { value ->
             value.let { show ->
                 binding.content.btnDelete.isEnabled = !show
+                binding.progressBar.isGone = !show
             }
         })
 

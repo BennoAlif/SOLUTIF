@@ -8,10 +8,13 @@ An application for monitoring street condition or road traffic condition such as
 
 - [Introduction](#introduction)
 
+- [Features & Screenshots](#features-&-screenshots)
+
 - [Tech Stack](#tech-stack)
+
 - [Dependencies](#dependencies)
 
-
+  
 
 ## Introduction
 

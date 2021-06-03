@@ -38,6 +38,11 @@ class DetailViewModel(private val IReportRepository: IReportRepository) : ViewMo
             when (val result = IReportRepository.updateReportStatus(reportId, isDone)) {
                 is Result.Success -> {
                     _spinner.value = false
+                    if (isDone) {
+                        _toast.value = activity.getString(R.string.finished)
+                    } else {
+                        _toast.value = activity.getString(R.string.not_finished)
+                    }
                 }
                 is Result.Error -> {
                     _toast.value = result.exception.message
@@ -58,6 +63,7 @@ class DetailViewModel(private val IReportRepository: IReportRepository) : ViewMo
                     val intent = Intent(activity, MainActivity::class.java)
                     activity.startActivity(intent)
                     _spinner.value = false
+                    _toast.value = activity.getString(R.string.deleted)
                 }
                 is Result.Error -> {
                     _toast.value = result.exception.message

@@ -18,6 +18,8 @@
     <string name="description">Description</string>
     <string name="timestamp">timestamp</string>
     <string name="photo_report">Photo report</string>
+    <string name="not_finished">Status laporan diubah menjadi belum selesai</string>
+    <string name="finished">Laporan telah selesai</string>
     <string name="is_done">Selesai</string>
     <string name="title_activity_detail">ScrollingActivity</string>
     <string name="detail_laporan">Detail laporan</string>
@@ -39,6 +41,7 @@
     <string name="roles">Roles</string>
     <string name="petugas">Petugas</string>
     <string name="pelapor">Pelapor</string>
+    <string name="deleted">Laporan berhasil dihapus!</string>
     <string-array name="roles_array">
         <item>Pelapor</item>
         <item>Petugas</item>
