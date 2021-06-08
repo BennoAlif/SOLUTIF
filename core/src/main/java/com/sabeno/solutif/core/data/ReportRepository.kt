@@ -4,6 +4,7 @@ import android.content.Context
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -97,7 +98,7 @@ class ReportRepository : IReportRepository {
 
     override suspend fun getReportOptions(): FirestoreRecyclerOptions<Report> {
         return FirestoreRecyclerOptions.Builder<Report>()
-            .setQuery(reportCollection, Report::class.java)
+            .setQuery(reportCollection.orderBy("createdAt", Query.Direction.DESCENDING), Report::class.java)
             .build()
     }
 
