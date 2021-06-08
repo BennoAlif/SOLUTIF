@@ -8,6 +8,8 @@ An application for monitoring street condition or road traffic condition such as
 
 - [Introduction](#introduction)
 
+- [Quick Steps](#quick-steps)
+
 - [Features & Screenshots](#features--screenshots)
 
 - [Tech Stack](#tech-stack)
@@ -27,6 +29,43 @@ Using the MVVM, Repository pattern, Dependency Injection, and Modularization arc
 For third-party libraries this project uses the Mapbox API, besides being easy to use, the API can also be used for free (Pay-as-you-go). The API is used to display the map to make it more interactive.
 
 
+
+## Quick Steps
+
+Start by adding the required dependencies such as Firebase services, Kotlin Coroutines, Mapbox, and others. After that proceed with integrating and activating several Firebase services in the project, such as Authentication, Cloud Firestore, and Storage. Once integrated, the next step is to create designs and layouts for Splash Screen, registration, login, create navigation for the homepage, and also profile layouts.
+
+Once the layout creation process is complete, it's time to create a function for each activity so that it can connect to the firebase service. Before that, we need to convert this Task into a coroutine function that will wait for the query answer and emit a Result object with the appropriate data.
+
+So what we gonna do is to create an extension function for the Task object, called await(), what will return:
+
+- **Result.Success:** the data if the query was successful
+- **Result.Error:** the error message if an error happened
+- **Result.Canceled:** an eventual error message if the query was canceled.
+
+After that, we will create a data model for each data that we will receive and send, such as User data class and Report data class.
+
+We are going to declare all the methods of our repository in an interface. Then we do an implementation for our application with the real Firebase queries.
+
+Before we apply this method we will create some member variables to initialize which firebase function to use. Here we use KTX, thus shortening the syntax we will write. An example would be like this:
+
+```kotlin
+// Without KTX
+private val firestore = FirebaseFirestore.getInstance()
+// With KTX
+private val firestoreInstance = Firebase.firestore
+```
+
+Jika fungsi firebase yang dibutuhkan sudah di inisialisasi, saatnya mengimplementasikan fungsi yang telah dibuat pada repository.
+
+If you've read about MVVM with Android, usually in the Repository there is a Model and Remote Data Source for managing data. But this time will be different, with Cloud Firestore, we can remove the last two parts of it. This is because Firestore provides its own local cache. This means we can remove the model and remote data source and combine them in a single repository class.
+
+Once the function is implemented in the Repository, it's time to create a ViewModel which will be responsible to get the data from the repository and notify the user interface about the changes and vice versa. Once all the ViewModels for each required activity have been created, it's time for us to add dependency injection, here we will use Coin as it is more concise and straightforward than others.
+
+When displaying a list of reports, we usually use the RecyclerView, but here we use the Firebase Firestore UI library so that the data is easy to manage and the UI will be more interactive, for example, if data is deleted or new data is created, the page will automatically update. Besides being interactive, the library is also very easy to use.
+
+After all business processes have been completed, we will change the project that was previously monolith (one module) into many modules. In this case, we will add a new module called Core, this modularization process serves to clearly divide the code according to its purpose and speed up build times.
+
+And last but not least, we added Obfuscation to avoid reverse engineering and reduce the size of the application.
 
 ## Features & Screenshots
 
@@ -72,4 +111,4 @@ For third-party libraries this project uses the Mapbox API, besides being easy t
 
 ## Download the App
 
-[Download](https://drive.google.com/file/d/1Frk1aVe8V5HpKMhX6Ib6zwieNSheAZpF/view?usp=sharing)
+[Download](https://drive.google.com/file/d/1QH2CZOG1MheUGE1aztkUSa_f0Liy0kG-/view?usp=sharing)
