@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SOLUTIF</string>
+    <string name="solutif_logo">SOLUTIF logo</string>
+    <string name="title_map">Peta</string>
+    <string name="title_list">Laporan</string>
+    <string name="tambah_laporan">Tambah laporan</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiYmVubm9hbGlmIiwiYSI6ImNrYnJyanZseDE4aW8ydWp6M3VvZHR6aXoifQ.IBqQxxGN8T-7SrY32AVoLQ</string>
+    <string name="label_password">Password</string>
+    <string name="label_email">Email</string>
+    <string name="login">Masuk</string>
+    <string name="title_profile">Profile</string>
+    <string name="profile_icon">Profile icon</string>
+    <string name="logout">Keluar</string>
+    <string name="username">Username</string>
+    <string name="request_canceled">Dibatalkan</string>
+    <string name="enter_valid_email">Masukan email yang valid</string>
+    <string name="enter_valid_password">Gunakan minimal 6 karakter</string>
+    <string name="description">Description</string>
+    <string name="timestamp">timestamp</string>
+    <string name="photo_report">Photo report</string>
+    <string name="not_finished">Status laporan diubah menjadi belum selesai</string>
+    <string name="finished">Laporan telah selesai</string>
+    <string name="is_done">Selesai</string>
+    <string name="title_activity_detail">ScrollingActivity</string>
+    <string name="detail_laporan">Detail laporan</string>
+    <string name="location">Lokasi</string>
+    <string name="location_permission">Anda harus mengizinkan lokasi untuk menggunakan aplikasi ini</string>
+    <string name="submit">Laporkan</string>
+    <string name="desc_is_empty">Deskripsi tidak boleh kosong</string>
+    <string name="desc_is_51">Deskripsi tidak boleh lebih dari 50 karakter</string>
+    <string name="delete_report">Hapus laporan</string>
+    <string name="belum_punya_akun">Belum punya akun? <b>Daftar di sini</b>.</string>
+    <string name="register">Daftar</string>
+    <string name="sudah_punya_akun">Sudah punya akun? <b>Masuk di sini</b>.</string>
+    <string name="name">Nama</string>
+    <string name="registration_successful">Berhasil mendaftarkan akun</string>
+    <string name="login_successful">Berhasil masuk</string>
+    <string name="password_validate">Gunakan minimal 6 karakter</string>
+    <string name="name_validate">Gunakan minimal 3 karakter</string>
+    <string name="menuju_lokasi">Menuju lokasi</string>
+    <string name="roles">Roles</string>
+    <string name="petugas">Petugas</string>
+    <string name="pelapor">Pelapor</string>
+    <string name="deleted">Laporan berhasil dihapus!</string>
+    <string-array name="roles_array">
+        <item>Pelapor</item>
+        <item>Petugas</item>
+    </string-array>
+</resources>
