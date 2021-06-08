@@ -55,7 +55,7 @@ private val firestore = FirebaseFirestore.getInstance()
 private val firestoreInstance = Firebase.firestore
 ```
 
-Jika fungsi firebase yang dibutuhkan sudah di inisialisasi, saatnya mengimplementasikan fungsi yang telah dibuat pada repository.
+If the required firebase functions have been initialized, it's time to implement the functions that have been created in the repository.
 
 If you've read about MVVM with Android, usually in the Repository there is a Model and Remote Data Source for managing data. But this time will be different, with Cloud Firestore, we can remove the last two parts of it. This is because Firestore provides its own local cache. This means we can remove the model and remote data source and combine them in a single repository class.
 
